@@ -5,7 +5,7 @@ import authService from '@/services/authService'
 import styles from '@/styles/registerLogin.module.scss'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap'
 
 const Register = () => {
@@ -13,6 +13,12 @@ const Register = () => {
 
     const [toastIsOpen, setToastIsOpen] = useState(false)
     const [toastMessage, setToastMessage] = useState('')
+
+    useEffect(() =>{
+        if (sessionStorage.getItem('onebitflix-token')) {
+            router.push('/home')
+        }
+    }, [])
 
     const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
